@@ -1,0 +1,223 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset='UTF-8'>
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<link rel="stylesheet" type="text/css" href="css/filter.css">
+	<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+	<link href="css/jquery.modal.css" type="text/css" rel="stylesheet" />
+
+	<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+	<script src="javascript/jquery.modal.js" type="text/javascript"></script>
+	<script src="javascript/participate.js" type="text/javascript"></script>
+	<script src="javascript/RadarChart.js"></script>
+	<script src="https://d3js.org/d3.v4.min.js"></script>
+
+
+	<title> This is (not) Media Architecutre</title> </head>
+
+<body style="overflow-y: scroll;">
+	<!-- <div class="wrapper">  -->
+		<!--  Navigation bar -->
+		<div class="header">
+			 <span><a href="index.html" >This is (not) Media Architecture </a></span>
+			 <div id="nav">
+				<span><a href="visualization.html">_visualization </a></span> 
+				<span> <a href="theory.html">_theory</a></span>
+		 		<span><a href="participate.html"  class="active">_participate</a> </span>
+		 		<span><a href="about.html">_about </a></span>
+			</div>
+		</div>
+		
+		</div>		
+		<div class="wrap"> 	
+					<h3> Participate </h3>
+					<p> You can participate in our attempt to find the Media Architecture elements by testing our framework with a project of your choice. Fill in the project’s details and watch it being visualized!
+
+					</p><br>
+					To help you fill in the form, you can first check the theory section.
+
+					<form class="form_participate"> 
+						<h4>Title</h4>
+						<input type="text" width="400px" height="60px" id="project_title" class="textbox"><br>
+						<h4> What is the type of architectural Space ? </h4>
+						<select id="space_input" class="dropdown_p">
+							<option value="">  </option>
+							<option id="p_space" value="Physical"> Physical </option>
+							<option id="a_space" value="Augmented"> Augmented </option>
+							<option id="v_space" value="Virtual"> Virtual </option>
+						</select><br><br>
+						<h4> What are the involved technologies ?</h4>
+						<select  id="tech_input" class="dropdown_p">
+							<option value="">  </option>
+							<option id="a_tech" value=0.5> Analog </option>
+							<option id="d_tech" value=0.5> Digital </option>
+							<option id="b_tech" value=1> Both </option>
+						</select><br><br>
+						<h4> What is the role of humans?</h4>
+						<select  id="pre_input" class="dropdown_p">
+							<option value="">  </option>
+							<option id="p_per" value=1> performer </option>
+							<option id="o_per" value=0> observer </option>
+						</select><br><br>
+							<h4> Is there a building space correspondence ?</h4>
+						<select  id="corr_input" class="dropdown_p">
+							<option value="">  </option>
+							<option id="y_corr" value=1> yes </option>
+							<option id="n_corr" value=0> no </option>
+						</select><br><br>
+						<h4> Is there sensing invloved ?</h4>
+						<select  id="sense_input" class="dropdown_p">
+							<option value="">  </option>
+							<option id="y_sen" value=1> yes </option>
+							<option id="n_sen" value=0> no </option>
+						</select><br><br>
+						<h4> Is it Dynamic ?</h4>
+						<select  id="dyn_input" class="dropdown_p">
+							<option value="">  </option>
+							<option id="y_dyn" value=1> yes </option>
+							<option id="n_dyn" value=0> no </option>
+						</select><br><br>
+							<h4>  Select keyword </h4>
+						<select  id="key_input" class="dropdown_p">
+							<option value="">  </option>
+							<option id="mf" value="Media Facade"> Media Facade </option>
+							<option id="ins" value="Installation">  Installation</option>
+							<option id="la" value="Light Architecture "> Light Architecture  </option>
+							<option id="pm" value="Projection Mapping">  Projection Mapping</option>
+							<option id="kf" value="Kinetic Facade "> Kinetic Facade </option>
+							<option id="ie" value="Immersive Environment ">  Immersive Environment </option>
+							<option id="ae" value="Architectural Element"> Architectural Element </option>
+							<option id="arch" value="Architecture">Architecture</option>
+							<option id="sim" value="Simulation"> Simulation </option>
+							<option id="sh" value="Smart House"> Smart House</option>
+							<option id="sc" value="Smart Citizen"> Smart Citizen </option>
+							<option id="us" value="Urban Screen">  Urban Screen</option>
+							<option id="ma" value="Mobile Application"> Mobile Application </option>
+							<option id="gm" value="Game">  Game </option>
+						</select><br><br>
+						<button id="btn_viz" class="btn_part" onclick="starVis();"> Let's Visualize </button>
+
+					</form>
+		</div>
+			<div id="second-modal">
+				 <p>Title</p>
+				 <div id="project-name"></div>
+				 <div id="temp-vis"></div>
+				 <p>What</p>
+				 <div id="temp-tag"></div>
+				 <p>Space Type </p>
+				 <div id="temp-space"></div>
+			
+			</div>
+
+
+			<script type="text/javascript">
+
+				var space = 1;
+				var dynamicity;
+				var tech;
+				var presense;
+				var sensing;
+				var corr;
+				var value;
+				var title;
+
+					$(document).ready(function(){	
+
+				
+
+
+				/*$("space_input").on("change", function(){
+						
+						space = $(this).val();
+						console.log(space);
+						// return space; 
+				}); */
+				
+				$("#tech_input").on("change", function(){
+
+					tech = $(this).val();
+					
+
+						console.log(tech);
+						//return tech;
+				});
+
+				$("#pre_input").on("change", function(){
+					
+					presense = $(this).val();
+
+					console.log(presense);
+					
+						
+					//	return presense;
+					
+				});
+					$("#dyn_input").on("change", function(){
+					
+					dynamicity = $(this).val();
+					
+					console.log(dynamicity);
+
+					//return dynamicity;
+				});
+					$("#sense_input").on("change", function(){
+					
+					sensing = $(this).val();
+
+					console.log(sensing);
+
+
+					
+				});
+				    $("#corr_input").on("change", function(){
+					
+					corr = $(this).val();
+
+					console.log(corr);
+					
+				});
+					$("#key_input").on("click", function(){
+						
+					value = $(this).val();
+								
+				});
+
+			});
+
+			function starVis(){
+
+
+
+				var dat = [
+								  [
+									{axis:"correspondence",value:corr},
+								  	{axis:"sensing",value:sensing},
+									{axis:"architectural space",value:space},
+									{axis:"human presence",value:presense},
+									{axis:"dynamicity",value:dynamicity},
+									{axis:"technology",value: tech},
+							
+								  ]
+							];
+
+					var mycfg = {
+								  w: 250,
+								  h: 250,
+								  maxValue: 1,
+								  levels: 2,
+								  ExtraWidthX: 150
+								}
+					RadarChart.draw("#temp_vis", dat, mycfg);  
+
+				$("#second-modal").modal();
+
+			}
+
+			</script>
+
+			
+
+</body>
+</html>
